@@ -1,12 +1,22 @@
-# Spring Security 기반 시나리오 
+## 백엔드 개발 온보딩 과제(Java)
 
-## 요구사항
-- Access / Refresh Token 발행과 검증에 관한 테스트 시나리오 작성하기
-- 토큰 발급 및 검증 로직은 Service 계층에서 Test 진행 
+### EC2 배포 주소
+- 미정
 
-## 회원 가입 
-- url : /signup
-- ResponseDto 에 authorities 포함 되어야 한다. 
-## 로그인 
-- url : /sign
-- ResponseDto 에 token 값은 accessToken 이여야 한다. 
+### Swagger 주소
+- http://localhost:8080/swagger-ui/index.html
+
+### 구현 기능 
+- [x] 회원가입, 로그인 API 구현
+  - 로그인 시 AccessToken 헤더 반환
+  - 로그인 시 RefreshToken Redis 저장후 쿠키 반환 
+- [x] AccessToken 재발급 비지니스 로직 구현
+  - Redis 에 저장된 RefreshToken 검증 후 AccessToken 재발급
+- [x] Spring Security 필터를 통한 인가 필터 작성
+- [x] Junit 을 통한 Mokito 기반 단위 테스트 작성
+  - sign(토큰 발급)
+  - verifyJwt(토큰 검증)
+- [x] Swagger - UI 적용
+- [ ] EC2 배포 
+
+

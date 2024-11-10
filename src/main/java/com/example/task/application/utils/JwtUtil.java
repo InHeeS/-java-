@@ -98,10 +98,10 @@ public class JwtUtil {
                 .parseSignedClaims(token);
         } catch (ExpiredJwtException e) {
             log.info("토큰이 만료되었습니다: {}", e.getMessage());
-            return null; // 만료된 토큰은 null 반환 또는 다른 처리
+            throw new RuntimeException("토큰이 만료되었습니다.");
         } catch (JwtException e) {
             log.error("유효하지 않은 토큰입니다: {}", e.getMessage());
-            return null; // 유효하지 않은 토큰도 null 반환
+            throw new RuntimeException("유효하지 않은 토큰입니다.");
         }
     }
 
@@ -123,20 +123,14 @@ public class JwtUtil {
     }
 
     public Claims verifyJwt(String token) {
-        try{
-            Jws<Claims> jws = parseToken(token);
-            Claims claims = jws.getPayload();
-            Long userId = claims.get("user_id", Long.class);
+        Jws<Claims> jws = parseToken(token);
+        Claims claims = jws.getPayload();
+        Long userId = claims.get("user_id", Long.class);
 
-            if(userRepository.existsById(userId)){
-                return claims;
-            }else{
-                throw new RuntimeException("유저 검증에 실패했습니다.");
-            }
-        } catch (ExpiredJwtException e) {
-            throw new RuntimeException("토큰이 만료되었습니다: " + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("유저 검증 중 문제가 발생했습니다: " + e.getMessage());
+        if(userRepository.existsById(userId)){
+            return claims;
+        }else{
+            throw new RuntimeException("유저 검증에 실패했습니다.");
         }
     }
 }

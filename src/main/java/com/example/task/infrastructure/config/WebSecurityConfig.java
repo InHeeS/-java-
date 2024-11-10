@@ -87,7 +87,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/sign").permitAll()
                 .requestMatchers("/access-token/reissue").permitAll()
                 .requestMatchers("/swagger-ui/**").permitAll()
-                .requestMatchers("/v1/api-docs/**").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
 

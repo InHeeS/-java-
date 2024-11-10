@@ -1,36 +1,36 @@
 version: '3.8'
 
 services:
-#  task-module:
-#    image: task/v1  # Spring Boot 애플리케이션 이미지
-#    container_name: task-module-host
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - task-module-net
+  task-module:
+    image: inheecho/task-v3  # Spring Boot 애플리케이션 이미지
+    container_name: task-module-host
+    ports:
+      - "8080:8080"
+    networks:
+      - task-module-net
 
   redis:
     image: redis:latest
     container_name: redis-ec2-host
-#    depends_on:
-#      - task-module
+    depends_on:
+      - task-module
     ports:
       - "6379:6379"
     networks:
       - task-module-net
 
-  mysql:
-    image: mysql:latest
-    container_name: mysql-ec2-host
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql  # 루트 비밀번호 설정
-      MYSQL_USER: mysql
-      MYSQL_PASSWORD: mysql
-      MYSQL_DATABASE: user   # 데이터베이스 이름 설정
-    ports:
-      - "3307:3306"
-    networks:
-      - task-module-net
+#  mysql:
+#    image: mysql:latest
+#    container_name: mysql-ec2-host
+#    environment:
+#      MYSQL_ROOT_PASSWORD: mysql  # 루트 비밀번호 설정
+#      MYSQL_USER: mysql
+#      MYSQL_PASSWORD: mysql
+#      MYSQL_DATABASE: user   # 데이터베이스 이름 설정
+#    ports:
+#      - "3307:3306"
+#    networks:
+#      - task-module-net
 
 networks:
   task-module-net:
